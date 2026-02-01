@@ -1,0 +1,9 @@
+var
+
+var main() {
+    io::write("Hello world")
+
+    cash: u8 = 5
+
+
+}
