@@ -115,17 +115,17 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_licanc: phony || .
 
-build licanc/CMakeFiles/licanc.dir/src/frontend/delivery.cc.obj: CXX_COMPILER__licanc_unscanned_Release C$:/Users/jghig/projects/c/licanc_loader/licanc/src/frontend/delivery.cc || cmake_object_order_depends_target_licanc
+build licanc/CMakeFiles/licanc.dir/src/frontend/lexer.cc.obj: CXX_COMPILER__licanc_unscanned_Release C$:/Users/jghig/projects/c/licanc_loader/licanc/src/frontend/lexer.cc || cmake_object_order_depends_target_licanc
   CONFIG = Release
-  DEP_FILE = licanc\CMakeFiles\licanc.dir\src\frontend\delivery.cc.obj.d
+  DEP_FILE = licanc\CMakeFiles\licanc.dir\src\frontend\lexer.cc.obj.d
   FLAGS = -static-libgcc -static-libstdc++ -Wall -std=c++17
   INCLUDES = -IC:/Users/jghig/projects/c/licanc_loader/licanc/include
   OBJECT_DIR = licanc\CMakeFiles\licanc.dir
   OBJECT_FILE_DIR = licanc\CMakeFiles\licanc.dir\src\frontend
 
-build licanc/CMakeFiles/licanc.dir/src/frontend/lexer.cc.obj: CXX_COMPILER__licanc_unscanned_Release C$:/Users/jghig/projects/c/licanc_loader/licanc/src/frontend/lexer.cc || cmake_object_order_depends_target_licanc
+build licanc/CMakeFiles/licanc.dir/src/frontend/manager.cc.obj: CXX_COMPILER__licanc_unscanned_Release C$:/Users/jghig/projects/c/licanc_loader/licanc/src/frontend/manager.cc || cmake_object_order_depends_target_licanc
   CONFIG = Release
-  DEP_FILE = licanc\CMakeFiles\licanc.dir\src\frontend\lexer.cc.obj.d
+  DEP_FILE = licanc\CMakeFiles\licanc.dir\src\frontend\manager.cc.obj.d
   FLAGS = -static-libgcc -static-libstdc++ -Wall -std=c++17
   INCLUDES = -IC:/Users/jghig/projects/c/licanc_loader/licanc/include
   OBJECT_DIR = licanc\CMakeFiles\licanc.dir
@@ -163,7 +163,7 @@ build licanc/CMakeFiles/licanc.dir/src/licanc.cc.obj: CXX_COMPILER__licanc_unsca
 #############################################
 # Link the static library licanc\liblicanc.a
 
-build licanc/liblicanc.a: CXX_STATIC_LIBRARY_LINKER__licanc_Release licanc/CMakeFiles/licanc.dir/src/frontend/delivery.cc.obj licanc/CMakeFiles/licanc.dir/src/frontend/lexer.cc.obj licanc/CMakeFiles/licanc.dir/src/frontend/parser.cc.obj licanc/CMakeFiles/licanc.dir/src/frontend/semantic_analyzer.cc.obj licanc/CMakeFiles/licanc.dir/src/licanc.cc.obj
+build licanc/liblicanc.a: CXX_STATIC_LIBRARY_LINKER__licanc_Release licanc/CMakeFiles/licanc.dir/src/frontend/lexer.cc.obj licanc/CMakeFiles/licanc.dir/src/frontend/manager.cc.obj licanc/CMakeFiles/licanc.dir/src/frontend/parser.cc.obj licanc/CMakeFiles/licanc.dir/src/frontend/semantic_analyzer.cc.obj licanc/CMakeFiles/licanc.dir/src/licanc.cc.obj
   CONFIG = Release
   LANGUAGE_COMPILE_FLAGS = -static-libgcc -static-libstdc++ -Wall
   OBJECT_DIR = licanc\CMakeFiles\licanc.dir

@@ -1,9 +1,7 @@
 #include "licanc.hh"
 
-#include "frontend/delivery.hh"
+#include "frontend/manager.hh"
 
-void compile(const std::string& project_path) {
-    frontend::delivery::t_compilation_unit new_unit;
-
+void licanc::compile(const licanc::t_lican_config& config) {
     
 }

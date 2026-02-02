@@ -47,8 +47,8 @@ namespace frontend::ast {
     using t_node_ids = std::vector<t_node_id>;
 
     struct t_node {
-        t_node(const base::t_span& span, t_ast_node_type type)
-            : span(span), type(type) {}
+        t_node(base::t_span span, t_ast_node_type type)
+            : span(std::move(span)), type(type) {}
 
         base::t_span span;
         t_ast_node_type type;
@@ -57,21 +57,21 @@ namespace frontend::ast {
     // -- EXPRESSIONS
 
     struct t_expr_identifier : t_node {
-        t_expr_identifier(const base::t_span& span)
-            : t_node(span, t_ast_node_type::EXPR_IDENTIFIER) {}
+        t_expr_identifier(base::t_span span)
+            : t_node(std::move(span), t_ast_node_type::EXPR_IDENTIFIER) {}
     };
 
     struct t_expr_unary : t_node {
-        t_expr_unary(const base::t_span& span, t_node_id operand, token::t_token_type opr)
-            : t_node(span, t_ast_node_type::EXPR_UNARY), operand(operand), opr(opr) {}
+        t_expr_unary(base::t_span span, t_node_id operand, token::t_token_type opr)
+            : t_node(std::move(span), t_ast_node_type::EXPR_UNARY), operand(operand), opr(opr) {}
 
         t_node_id operand; // t_expr
         token::t_token_type opr;
     };
 
     struct t_expr_binary : t_node {
-        t_expr_binary(const base::t_span& span, t_node_id operand0, t_node_id operand1, token::t_token_type opr)
-            : t_node(span, t_ast_node_type::EXPR_UNARY), operand0(operand0), operand1(operand1), opr(opr) {}
+        t_expr_binary(base::t_span span, t_node_id operand0, t_node_id operand1, token::t_token_type opr)
+            : t_node(std::move(span), t_ast_node_type::EXPR_BINARY), operand0(operand0), operand1(operand1), opr(opr) {}
 
         t_node_id operand0; // t_expr
         t_node_id operand1; // t_expr
@@ -79,8 +79,8 @@ namespace frontend::ast {
     };
 
     struct t_expr_ternary : t_node {
-        t_expr_ternary(const base::t_span& span, t_node_id condition, t_node_id consequent, t_node_id alternate, token::t_token_type opr)
-            : t_node(span, t_ast_node_type::EXPR_UNARY), condition(condition), consequent(consequent), alternate(alternate), opr(opr) {}
+        t_expr_ternary(base::t_span span, t_node_id condition, t_node_id consequent, t_node_id alternate, token::t_token_type opr)
+            : t_node(std::move(span), t_ast_node_type::EXPR_TERNARY), condition(condition), consequent(consequent), alternate(alternate), opr(opr) {}
 
         t_node_id condition; // t_expr
         t_node_id consequent; // t_expr
@@ -98,15 +98,15 @@ namespace frontend::ast {
     // -- ITEMS
 
     struct t_item_declaration : t_node {
-        t_item_declaration(const base::t_span& span, t_node_id&& name, t_node_id&& type, t_node_id&& value)
-            : t_node(span, t_ast_node_type::ITEM_DECLARATION), name(name), type(type), value(value) {}
+        t_item_declaration(base::t_span span, t_node_id name, t_node_id type, t_node_id value)
+            : t_node(std::move(span), t_ast_node_type::ITEM_DECLARATION), name(name), type(type), value(value) {}
 
         t_node_id name, type, value; // t_expr_identifier, t_type, t_expr
     };
 
     struct t_item_type_declaration : t_node {
-        t_item_type_declaration(const base::t_span& span, t_node_id&& name, t_node_id&& type)
-            : t_node(span, t_ast_node_type::ITEM_TYPE_DECLARATION), name(name), type(type) {}
+        t_item_type_declaration(base::t_span span, t_node_id name, t_node_id type)
+            : t_node(std::move(span), t_ast_node_type::ITEM_TYPE_DECLARATION), name(name), type(type) {}
 
         t_node_id name, type; // expr_identifier, t_type
     };
@@ -160,7 +160,16 @@ namespace frontend::ast {
         t_stmt_chunk
     >;
 
+    // note: this is initialized before parsing or even lexing occurs. DESIGN IT TO WORK THAT WAY, FUTURE ME!!
     struct t_ast {
+        std::vector<t_node_variation> raw;
 
+        inline t_ast_node_type get_node_id_type(t_node_id node_id) {
+            return get_node_base_ptr(node_id)->type;
+        }
+
+        inline t_node* get_node_base_ptr(t_node_id node_id) {
+            return std::visit([](auto& n) { return (t_node*)(&n); }, raw[node_id]);
+        }
     };
 }

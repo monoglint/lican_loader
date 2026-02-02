@@ -7,16 +7,18 @@
 
 namespace frontend::semantic_analyzer {
     struct t_analyzer_state {
+        t_analyzer_state(ast::t_ast& ast)
+            : ast(ast) {}
+
         // input information
         
-        const std::string source_code;
-        const ast::t_ast ast;
+        // remember: analyzer can modify the ast, especially for template instantiation
+        ast::t_ast& ast; 
 
         // stuff the lexer uses
 
-        u32 ptr = 0; // dont name it like this, this is example for later
-        token::t_token_list& tokens;
+        sym::t_symbol_table symbol_table;
     };
 
-    sym::t_symbol_table analyze(t_analyzer_state& parser_state);
+    void analyze(t_analyzer_state& analyzer_state);
 }

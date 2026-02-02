@@ -9,5 +9,10 @@ primary interface header
 #include <string>
 
 namespace licanc {
-    void compile(const std::string& project_path);
+    struct t_lican_config {
+        // directory for the entire lican project
+        const std::string& project_path;
+    };
+
+    void compile(const t_lican_config& config);
 }

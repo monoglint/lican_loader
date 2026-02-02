@@ -7,6 +7,9 @@
 
 namespace frontend::lexer {
     struct t_lexer_state {
+        t_lexer_state(const std::string& source_code)
+            : source_code(source_code) {}
+
         // input information
         
         const std::string& source_code;
@@ -14,8 +17,8 @@ namespace frontend::lexer {
         // stuff the lexer uses
 
         u32 ptr = 0; // dont name it like this, this is example for later
-        token::t_token_list& tokens;
+        token::t_token_list tokens;
     };
 
-    token::t_token_list lex(t_lexer_state& lexer_state);
+    void lex(t_lexer_state& lexer_state);
 }
