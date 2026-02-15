@@ -20,28 +20,30 @@ std::string read_file(std::string file_path) {
 }
 
 void process_file(frontend::manager::t_compilation_file& file) {
+    using namespace frontend;
+
     //
-    frontend::lexer::t_lexer_state lexer_state(file.source_code);
-    frontend::lexer::lex(lexer_state);
+    lexer::t_lexer_state lexer_state(file.source_code);
+    lexer::lex(lexer_state);
     //
 
     //
-    frontend::parser::t_parser_state parser_state(file.source_code, lexer_state.tokens);
-    frontend::parser::parse(parser_state);
+    parser::t_parser_state parser_state(file.source_code, lexer_state.tokens);
+    parser::parse(parser_state);
     //
 
     // track the inclusion of any files from the ast
     // proceed to run them here
-    for (frontend::ast::t_node_id node_id = 0; node_id < parser_state.ast.raw.size(); node_id++) {
+    for (ast::t_node_id node_id : parser_state.import_node_ids) {
         // check if there is an include item anywhere in the ast.
-        //parser_state.ast.get_node_id_type(node_id)
+        // parser_state.ast.get<ast::t_item_import>(node_id).file_path;
 
         // if one is detected, immediately completely parse and analyze until there is a complete compilation file before continuing on.
     }
 
     //
-    frontend::semantic_analyzer::t_analyzer_state analyzer_state(parser_state.ast);
-    frontend::semantic_analyzer::analyze(analyzer_state);
+    semantic_analyzer::t_analyzer_state analyzer_state(parser_state.ast);
+    semantic_analyzer::analyze(analyzer_state);
     //
 }
 

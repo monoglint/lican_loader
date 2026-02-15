@@ -17,9 +17,13 @@ namespace frontend::parser {
 
         // stuff the parser uses
 
-        u32 ptr = 0; // dont name it like this, this is example for later
+        u32 ptr = 0;
         ast::t_ast ast;
+
+        // keep track of any import "statements" to preemptively load any modules
+        ast::t_node_ids import_node_ids;
     };
 
     void parse(t_parser_state& parser_state);
+    void build_test_ast(t_parser_state& parser_state);
 }
